@@ -1,11 +1,11 @@
 package com.example.deusrat
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.deusrat.databinding.FragmentFirstBinding
 
@@ -26,6 +26,7 @@ class FirstFragment : Fragment() {
     ): View? {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        exitTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.fade)
         return binding.root
 
     }

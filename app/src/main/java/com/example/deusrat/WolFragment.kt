@@ -2,6 +2,7 @@ package com.example.deusrat
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ class WolFragment : Fragment() {
     ): View? {
 
         _binding = FragmentWolBinding.inflate(inflater, container, false)
+        enterTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.slide_right)
         return binding.root
 
     }
@@ -53,6 +55,11 @@ class WolFragment : Fragment() {
         }
 
         binding.wolLogview.movementMethod = ScrollingMovementMethod()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as MainActivity).supportActionBar?.hide()
     }
 
     override fun onDestroyView() {
