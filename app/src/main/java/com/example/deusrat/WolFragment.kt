@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.deusrat.client.TcpAuthenticator
 import com.example.deusrat.databinding.FragmentWolBinding
+import kotlinx.coroutines.runBlocking
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -41,14 +43,14 @@ class WolFragment : Fragment() {
         }
 
         binding.buttonClearLog.setOnClickListener {
-            binding.wolLogview.setText("Console output")
+            binding.wolLogview.text = getString(R.string.default_console_text)
         }
 
         binding.buttonLogin.setOnClickListener {
-            val logs = remoteLoginNative();
-            binding.wolLogview.append("\n" + logs)
+            runBlocking {  TcpAuthenticator().connect { message ->
+                binding.wolLogview.append("\n" + message)
+            }}
         }
-
 
         binding.wolLogview.movementMethod = ScrollingMovementMethod()
     }
@@ -56,5 +58,11 @@ class WolFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    suspend fun addToTextView(text: String) : Int
+    {
+        binding.wolLogview.append("\n" + text)
+        return 0;
     }
 }
