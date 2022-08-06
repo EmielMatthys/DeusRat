@@ -26,7 +26,6 @@ class FirstFragment : Fragment() {
     ): View? {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
-        (activity as MainActivity).supportActionBar?.hide()
         return binding.root
 
     }
@@ -34,7 +33,6 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as MainActivity).supportActionBar?.hide()
         binding.buttonWol.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
